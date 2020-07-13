@@ -18,6 +18,6 @@ extension = eval('{}{}'.format(entrada_diretorio, EXT))
 atrib = eval('{}{}'.format(entrada_diretorio, ATRIB))
 hora = eval('{}{}'.format(entrada_diretorio, HORA))
 data = eval('{}{}'.format(entrada_diretorio, DATA))
-granulo_init = eval('{}{}'.format(entrada_diretorio, GRANULO_INIT)))
+granulo_init = eval('{}{}'.format(entrada_diretorio, GRANULO_INIT))
 
 
