@@ -8,10 +8,9 @@ entrada_diretorio = entrada_diretorio[0]
 FILENAME = '[:8]'
 EXT = '[8:11]'
 ATRIB = '[11]'
-HORA='[22:24]'
-DATA='[24:26]'
-GRANULO_INIT='[26:28]'
-
+HORA = '[22:24]'
+DATA = '[24:26]'
+GRANULO_INIT = '[26:28]'
 
 file_name = eval('{}{}'.format(entrada_diretorio, FILENAME))
 extension = eval('{}{}'.format(entrada_diretorio, EXT))
@@ -19,5 +18,3 @@ atrib = eval('{}{}'.format(entrada_diretorio, ATRIB))
 hora = eval('{}{}'.format(entrada_diretorio, HORA))
 data = eval('{}{}'.format(entrada_diretorio, DATA))
 granulo_init = eval('{}{}'.format(entrada_diretorio, GRANULO_INIT))
-
-

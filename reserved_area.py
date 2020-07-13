@@ -5,15 +5,22 @@ from utils.enter_data import Input
 
 
 class ReservedArea:
-    BYTES_SECTOR = '[12:14]'
-    SECTOR_CLUSTER = '[14]'
-    SECTORS_RESERVED_AREA = '[15:17]'
-    QTD_FAT = '[17]'
-    QTD_DIRECTORY_ENTRY = '[18:20]'
-    SECTOR_BY_FAT = '[23:25]'
+    # Class Attributes
+    BYTES_SECTOR = '[11:13]'
+    SECTOR_CLUSTER = '[13]'
+    SECTORS_RESERVED_AREA = '[14:16]'
+    QTD_FAT = '[16]'
+    QTD_DIRECTORY_ENTRY = '[17:19]'
+    SECTORS_BY_FAT = '[22:24]'
+
+    # List of parameters used to set values
+    PARAMETERS = ['bytes_sector', 'sector_cluster', 'sectors_reserved_area', 'qtd_fat', 'qtd_directory_entry',
+                  'sectors_by_fat']
 
     def __init__(self, double_check=False):
         self.dump = self.take_dump(double_check)
+        self.bytes_sector = self.sector_cluster = self.sectors_reserved_area = self.qtd_fat = 0
+        self.qtd_directory_entry = self.sectors_by_fat = 0
 
     def take_dump(self, double_check=False):
         """
@@ -30,10 +37,10 @@ class ReservedArea:
         print("Dump the Reserved Area's memory region")
         print("In MS-DOS: D 0")
         input("Copy each line just like are in DOS's terminal except for '-' between byte 7 and 8.")
+        clear()
 
         # Input
         stream = Input.enter_data(rows=2)
-        print(stream)
 
         # Double check trigger
         if double_check:
@@ -42,10 +49,28 @@ class ReservedArea:
                 clear()
                 input("The data dont match, type all again, please.")
                 self.take_dump(double_check=True)
-
+        clear()
         return stream
+
+    def get_parameters(self):
+        """
+        Call a function to assign values to the attributes listed in ATTRIBUTES's list
+        :return: None
+        """
+        Input.set_parameters(self)
+
+    def set_parameters(self):
+        """
+        Call a function to calculate value using hex values
+        :return: None
+        """
+        Input.set_hex_values(self)
 
 
 if __name__ == '__main__':
-    na = ReservedArea(True)
-    print(na.dump)
+    na = ReservedArea(False)
+    na.get_parameters()
+    na.set_parameters()
+    print(na.bytes_sector)
+    print(na.BYTES_SECTOR)
+    print(na.bytes_sector_hex)
