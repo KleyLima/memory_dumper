@@ -21,6 +21,8 @@ class ReservedArea:
         self.dump = self.take_dump(double_check)
         self.bytes_sector = self.sector_cluster = self.sectors_reserved_area = self.qtd_fat = 0
         self.qtd_directory_entry = self.sectors_by_fat = 0
+        self.bytes_sector_hex = self.sector_cluster_hex = self.sectors_reserved_area_hex = self.qtd_fat_hex = 0
+        self.qtd_directory_entry_hex = self.sectors_by_fat_hex = 0
 
     def take_dump(self, double_check=False):
         """
@@ -66,6 +68,13 @@ class ReservedArea:
         """
         Input.set_hex_values(self)
 
+    def __repr__(self):
+        return f"""Bytes per sector: {self.bytes_sector_hex}  \nSectors per cluster: {self.sector_cluster_hex}
+                    Sectors of Reserved Area: {self.sectors_reserved_area_hex} \nQuantity of FAT's: {self.qtd_fat_hex}
+                    \nQuantity of directory entries: {self.qtd_directory_entry_hex} 
+                    \nSectors by FAT: {self.sectors_by_fat_hex}
+                """
+
 
 if __name__ == '__main__':
     na = ReservedArea(False)
@@ -74,3 +83,4 @@ if __name__ == '__main__':
     print(na.bytes_sector)
     print(na.BYTES_SECTOR)
     print(na.bytes_sector_hex)
+    print(na.qtd_directory_entry_hex)
