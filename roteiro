@@ -1,0 +1,23 @@
+Dados da area reservada
+	- Exibir valores
+
+Diagrama da memória
+	- Considerar que pode não haver cópia da FAT
+
+Obter dados do diretório raiz
+	- Tam da area reservada = Tam do setor * Qtd de setores da área reservada
+	- Somar com tamanho das FAT's para obter o deslocamento para o diretório de arquivos
+	- Indicar o comando que o usuário deve usar "D blau"
+	
+	- Obter infos das entradas de diretórios dos arquivos desejados
+	- Mostrar dados do arquivo passado
+	- Com o Nº do granulo chegamos no deslocamento para ler na memoria considerando a const 1.8h
+	- Listar os granulos usados na ordem.
+	- São encontrados na FAT, logo após a area reservada // D {tam. area reservada}
+	
+Com a lista de setores:
+	- Calcular a Posição do Granulo Usando a formula // Lembrar da questão setor/bytes
+	- Indicar ao Usuário que comando usar
+
+
+

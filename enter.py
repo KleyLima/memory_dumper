@@ -13,9 +13,11 @@ DATA='[24:26]'
 GRANULO_INIT='[26:28]'
 
 
-print(eval('{}{}'.format(entrada_diretorio, FILENAME)))
-print(eval('{}{}'.format(entrada_diretorio, EXT)))
-print(eval('{}{}'.format(entrada_diretorio, ATRIB)))
-print(eval('{}{}'.format(entrada_diretorio, HORA)))
-print(eval('{}{}'.format(entrada_diretorio, DATA)))
-print(eval('{}{}'.format(entrada_diretorio, GRANULO_INIT)))
+file_name = eval('{}{}'.format(entrada_diretorio, FILENAME))
+extension = eval('{}{}'.format(entrada_diretorio, EXT))
+atrib = eval('{}{}'.format(entrada_diretorio, ATRIB))
+hora = eval('{}{}'.format(entrada_diretorio, HORA))
+data = eval('{}{}'.format(entrada_diretorio, DATA))
+granulo_init = eval('{}{}'.format(entrada_diretorio, GRANULO_INIT)))
+
+
