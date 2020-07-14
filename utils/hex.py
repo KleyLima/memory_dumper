@@ -49,14 +49,15 @@ class Hex:
         return out.stdout.decode('utf-8')[:-1]
 
 
+if __name__ == '__main__':
 
-na = Hex('a.8')
-print(na)
-no = Hex('a')
-print(na)
-res = na * no
-print(res)
-# cmd = f"echo 'obase=16;ibase=16;3*1.8' | bc"
-# out = subprocess.run(cmd, stdout=subprocess.PIPE, shell=True)
-# na = out.stdout.decode('utf-8')
-# print(repr(na))
+    na = Hex('a.8')
+    print(na)
+    no = Hex('a')
+    print(na)
+    res = na * no
+    print(res)
+    # cmd = f"echo 'obase=16;ibase=16;3*1.8' | bc"
+    # out = subprocess.run(cmd, stdout=subprocess.PIPE, shell=True)
+    # na = out.stdout.decode('utf-8')
+    # print(repr(na))
