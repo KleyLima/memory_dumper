@@ -71,11 +71,14 @@ class ReservedArea:
         Input.set_hex_values(self)
 
     def __repr__(self):
-        return f"""Bytes per sector: {self.bytes_sector_hex}  \nSectors per cluster: {self.sector_cluster_hex}
-                    Sectors of Reserved Area: {self.sectors_reserved_area_hex} \nQuantity of FAT's: {self.qtd_fat_hex}
-                    \nQuantity of directory entries: {self.qtd_directory_entry_hex} 
-                    \nSectors by FAT: {self.sectors_by_fat_hex}
-                """
+        # TODO: Maybe a global repr function?
+        out = f"-----------------RESERVED AREA-------------------------------------------"
+        out += f"\nBytes per sector: {self.bytes_sector_hex}  \nSectors per cluster: {self.sector_cluster_hex}"
+        out += f"\nSectors of Reserved Area: {self.sectors_reserved_area_hex} \nQuantity of FAT's: {self.qtd_fat_hex}"
+        out += f"\nQuantity of directory entries: {self.qtd_directory_entry_hex}"
+        out += f"\nSectors by FAT: {self.sectors_by_fat_hex} \nSize of Reserved Area: {self.size}"
+        out += f"\n---------------------------------------------------------------------------"
+        return out
 
     def calc_size(self):
         """
@@ -91,8 +94,9 @@ if __name__ == '__main__':
     na.get_parameters()
     na.set_parameters()
     na.calc_size()
-    print(na.bytes_sector)
-    print(na.BYTES_SECTOR)
-    print(na.bytes_sector_hex)
-    print(na.qtd_directory_entry_hex)
-    print(na.size)
+    # print(na.bytes_sector)
+    # print(na.BYTES_SECTOR)
+    # print(na.bytes_sector_hex)
+    # print(na.qtd_directory_entry_hex)
+    # print(na.size)
+    print(na)
