@@ -2,6 +2,7 @@
 
 from utils.clear import clear
 from utils.enter_data import Input
+from utils.hex import Hex
 
 
 class ReservedArea:
@@ -13,17 +14,21 @@ class ReservedArea:
     QTD_DIRECTORY_ENTRY = '[17:19]'
     SECTORS_BY_FAT = '[22:24]'
     size = 0
+    offset = Hex("0")
 
     # List of parameters used to set values
     PARAMETERS = ['bytes_sector', 'sector_cluster', 'sectors_reserved_area', 'qtd_fat', 'qtd_directory_entry',
                   'sectors_by_fat']
 
     def __init__(self, double_check=False):
-        self.dump = self.take_dump(double_check)
+        self.dump = 0
+        self.take_dump(double_check)
         self.bytes_sector = self.sector_cluster = self.sectors_reserved_area = self.qtd_fat = 0
         self.qtd_directory_entry = self.sectors_by_fat = 0
         self.bytes_sector_hex = self.sector_cluster_hex = self.sectors_reserved_area_hex = self.qtd_fat_hex = 0
         self.qtd_directory_entry_hex = self.sectors_by_fat_hex = 0
+        self.get_parameters()
+        self.set_parameters()
         self.calc_size()
 
     def take_dump(self, double_check=False):
@@ -54,7 +59,7 @@ class ReservedArea:
                 input("The data dont match, type all again, please.")
                 self.take_dump(double_check=True)
         clear()
-        return stream
+        self.dump = stream
 
     def get_parameters(self):
         """
