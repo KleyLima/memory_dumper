@@ -48,9 +48,12 @@ class Hex:
         out = subprocess.run(cmd, stdout=subprocess.PIPE, shell=True)
         return out.stdout.decode('utf-8')[:-1]
 
+    def __add__(self, other):
+        if isinstance(other, Hex):
+            return Hex(format(self.vl_dec + other.vl_dec, 'X'))
+
 
 if __name__ == '__main__':
-
     na = Hex('a.8')
     print(na)
     no = Hex('a')
