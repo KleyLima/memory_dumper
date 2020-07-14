@@ -12,6 +12,7 @@ class ReservedArea:
     QTD_FAT = '[16]'
     QTD_DIRECTORY_ENTRY = '[17:19]'
     SECTORS_BY_FAT = '[22:24]'
+    size = 0
 
     # List of parameters used to set values
     PARAMETERS = ['bytes_sector', 'sector_cluster', 'sectors_reserved_area', 'qtd_fat', 'qtd_directory_entry',
@@ -75,11 +76,19 @@ class ReservedArea:
                     \nSectors by FAT: {self.sectors_by_fat_hex}
                 """
 
+    def calc_size(self):
+        """
+        Get the size in bytes of the reserved area. Considering
+        Size of Reserved Area = Sectors in reserverd area * Bytes per Sector
+        :return: None
+        """
+        self.size = self.sectors_reserved_area_hex * self.bytes_sector_hex
 
 if __name__ == '__main__':
     na = ReservedArea(False)
     na.get_parameters()
     na.set_parameters()
+    na.calc_size()
     print(na.bytes_sector)
     print(na.BYTES_SECTOR)
     print(na.bytes_sector_hex)
