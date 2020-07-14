@@ -24,6 +24,7 @@ class ReservedArea:
         self.qtd_directory_entry = self.sectors_by_fat = 0
         self.bytes_sector_hex = self.sector_cluster_hex = self.sectors_reserved_area_hex = self.qtd_fat_hex = 0
         self.qtd_directory_entry_hex = self.sectors_by_fat_hex = 0
+        self.calc_size()
 
     def take_dump(self, double_check=False):
         """
@@ -84,6 +85,7 @@ class ReservedArea:
         """
         self.size = self.sectors_reserved_area_hex * self.bytes_sector_hex
 
+
 if __name__ == '__main__':
     na = ReservedArea(False)
     na.get_parameters()
@@ -93,3 +95,4 @@ if __name__ == '__main__':
     print(na.BYTES_SECTOR)
     print(na.bytes_sector_hex)
     print(na.qtd_directory_entry_hex)
+    print(na.size)
