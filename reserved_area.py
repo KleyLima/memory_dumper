@@ -13,7 +13,7 @@ class ReservedArea:
     QTD_FAT = '[16]'
     QTD_DIRECTORY_ENTRY = '[17:19]'
     SECTORS_BY_FAT = '[22:24]'
-    size = 0
+    reserved_area_size = Hex("0")
     offset = Hex("0")
 
     # List of parameters used to set values
@@ -77,11 +77,11 @@ class ReservedArea:
 
     def __repr__(self):
         # TODO: Maybe a global repr function?
-        out = f"-----------------RESERVED AREA-------------------------------------------"
+        out = f"\n-----------------RESERVED AREA-------------------------------------------"
         out += f"\nBytes per sector: {self.bytes_sector_hex}  \nSectors per cluster: {self.sector_cluster_hex}"
         out += f"\nSectors of Reserved Area: {self.sectors_reserved_area_hex} \nQuantity of FAT's: {self.qtd_fat_hex}"
         out += f"\nQuantity of directory entries: {self.qtd_directory_entry_hex}"
-        out += f"\nSectors by FAT: {self.sectors_by_fat_hex} \nSize of Reserved Area: {self.size}"
+        out += f"\nSectors by FAT: {self.sectors_by_fat_hex} \nSize of Reserved Area in bytes: {self.reserved_area_size}"
         out += f"\n---------------------------------------------------------------------------"
         return out
 
@@ -91,7 +91,7 @@ class ReservedArea:
         Size of Reserved Area = Sectors in reserverd area * Bytes per Sector
         :return: None
         """
-        self.size = self.sectors_reserved_area_hex * self.bytes_sector_hex
+        self.reserved_area_size = self.sectors_reserved_area_hex * self.bytes_sector_hex
 
 
 if __name__ == '__main__':
