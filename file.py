@@ -80,6 +80,7 @@ class File(ReservedArea):
                f"\nFilename: {self.filename} \nExtension: {self.file_extension}" \
                f"\nAttributes: {[att for index, att in enumerate(self.ATTRIBS) if index in self.exist_atribs]}" \
                f"\nDate: {self.date_real} \nHour: {self.hour_real} \nFile Size: {self.file_size_hex}" \
+               f"\nNested Files: {[file.__repr__() for file in self.nested_files] if self.is_directory else None}" \
                f"\n--------------------------------------------------------------------------------------------------"
 
     # TODO: Nested files for subdir, or handle it in the RAM class ? if isdir [file for file in nested_files] and so on
@@ -96,4 +97,3 @@ class File(ReservedArea):
 if __name__ == '__main__':
     na = File()
     print(na)
-    na.append_file_to_dir()
