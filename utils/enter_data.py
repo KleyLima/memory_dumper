@@ -49,3 +49,12 @@ class Input:
     def set_hex_values(obj):
         [setattr(obj, f"{name_param}_hex", Hex(Input.concat_stream(getattr(obj, name_param))))
          for name_param in obj.PARAMETERS]
+
+    @staticmethod
+    def string_from_stream(stream):
+        """
+        As the name sugests given a stream, return the string that it represent. The values must be in hexadecimal
+        :param stream: List of Strings that represents a hexadecimal numer e.g ['52', '45', '41', '4C'] = REAL
+        :return: One string
+        """
+        return "".join([chr(int(f"0x{letter}", 16)) for letter in stream])
