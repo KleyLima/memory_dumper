@@ -31,6 +31,7 @@ class File(ReservedArea):
         self.get_string_values()
         self.read_attributes()
         self.calc_hour()
+        self.calc_date()
 
     def get_string_values(self):
         self.filename = Input.string_from_stream(self.filename)
@@ -56,8 +57,22 @@ class File(ReservedArea):
 
         self.hour_real = f"{hour}:{minut}:{sec}"
 
+    def calc_date(self):
+        """
+        Get year, month and year of the last modification of the file using hex and bin numbers.
+        :return: None
+        """
+        bin_repr = Bin(self.date_hex)
+        str_bin = bin_repr.vl_bin.zfill(16)
+        year = Bin.bin_to_dec(str_bin[:7]) + 1980
+        month = Bin.bin_to_dec(str_bin[7:11])
+        day = Bin.bin_to_dec(str_bin[11:])
+
+        self.date_real = f"{day}/{month}/{year}"
+
 
 if __name__ == '__main__':
     na = File()
     print(na.filename, na.file_extension, na.atrib)  # , 'hour', 'date', 'init_cluster')
     print(na.hour_real)
+    print(na.date_real)
