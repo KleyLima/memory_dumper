@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from functools import reduce
+
 from utils.clear import clear
 from utils.hex import Hex
-from functools import reduce
 
 
 class Input:
@@ -57,4 +58,8 @@ class Input:
         :param stream: List of Strings that represents a hexadecimal numer e.g ['52', '45', '41', '4C'] = REAL
         :return: One string
         """
-        return "".join([chr(int(f"0x{letter}", 16)) for letter in stream])
+        return "".join([chr(int(f"0x{letter}", 16)) for letter in stream[::-1]])
+
+
+if __name__ == '__main__':
+    print(Input.string_from_stream(['20', '20', '20', '20', '4C', '41', '45', '52']))
