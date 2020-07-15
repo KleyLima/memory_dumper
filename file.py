@@ -24,6 +24,7 @@ class File(ReservedArea):
         self.filename_hex = self.file_extension_hex = self.date_hex = self.hour_hex = self.file_size_hex = 0
         self.atrib_hex = self.init_cluster_hex = Hex("0")
         self.exist_atribs = []
+        self.nested_files = []
         self.hour_real = self.date_real = 0
         self.take_dump()
         self.get_parameters()
@@ -43,6 +44,7 @@ class File(ReservedArea):
         :return: None
         """
         self.exist_atribs = Bin(self.atrib_hex).get_active_bits()
+        self.is_directory = True if self.ATTRIBS.index("Entrada de sub-diretório") in self.exist_atribs else False
 
     def calc_hour(self):
         """
@@ -70,9 +72,19 @@ class File(ReservedArea):
 
         self.date_real = f"{day}/{month}/{year}"
 
+    def __repr__(self):
+        return f"-----------------------------FILE-----------------------------------" \
+               f"\nFilename: {self.filename} \nExtension: {self.file_extension}" \
+               f"\nAttributes: {[att for index, att in enumerate(self.ATTRIBS) if index in self.exist_atribs]}" \
+               f"\nDate: {self.date_real} \nHour: {self.hour_real} \nFile Size: {self.file_size_hex}" \
+               f"\n------------------------------------------------------------------------"
+
+    # TODO: Nested files for subdir, or handle it in the RAM class ?
+
 
 if __name__ == '__main__':
     na = File()
     print(na.filename, na.file_extension, na.atrib)  # , 'hour', 'date', 'init_cluster')
     print(na.hour_real)
     print(na.date_real)
+    print(na)
