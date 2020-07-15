@@ -79,7 +79,7 @@ class File(ReservedArea):
                f"\nDate: {self.date_real} \nHour: {self.hour_real} \nFile Size: {self.file_size_hex}" \
                f"\n------------------------------------------------------------------------"
 
-    # TODO: Nested files for subdir, or handle it in the RAM class ?
+    # TODO: Nested files for subdir, or handle it in the RAM class ? if isdir [file for file in nested_files] and so on
 
 
 if __name__ == '__main__':
