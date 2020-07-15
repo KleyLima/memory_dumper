@@ -30,6 +30,7 @@ class RAM(ReservedArea):
                   f"\nSum size of all FAT's {self.fats_size} \nRoot DIR Size: {self.root_dir_size}" \
                   f"\nComand to get in ROOT DIR: D {self.root_dir_offset.vl_hex} " \
                   f"\nComand to get in FILES AND SUBDIRS: D {self.files_subdir_offset.vl_hex}" \
+                  f"\nComand to get in the start of FAT: D {self.reserved_area_size}" \
                   f"\n--------------------------------------------------------------------------"
         out_put += super().__repr__()
         return out_put
