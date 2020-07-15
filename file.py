@@ -18,11 +18,13 @@ class File(ReservedArea):
     ATTRIBS = ["Somente Leitura", "Arquivo Oculto", "Arquivo de Sistema", "Nome do Volume", "Entrada de sub-diretório",
                "Arquivo modificado"]
 
-    def __init__(self):
-        self.path = self.filename = self.file_extension = self.date = self.hour = self.file_size = self.atrib = 0
+    def __init__(self, parent_folder="\\"):
+        self.filename = ""
+        self.file_extension = self.date = self.hour = self.file_size = self.atrib = 0
         self.used_clusters = self.is_directory = self.dump = self.init_cluster = 0
-        self.filename_hex = self.file_extension_hex = self.date_hex = self.hour_hex = self.file_size_hex = 0
-        self.atrib_hex = self.init_cluster_hex = Hex("0")
+        self.filename_hex = self.file_extension_hex = self.file_size_hex = 0
+        self.path = parent_folder
+        self.atrib_hex = self.init_cluster_hex = self.date_hex = self.hour_hex = Hex("0")
         self.exist_atribs = []
         self.nested_files = []
         self.hour_real = self.date_real = 0
@@ -73,18 +75,25 @@ class File(ReservedArea):
         self.date_real = f"{day}/{month}/{year}"
 
     def __repr__(self):
-        return f"-----------------------------FILE-----------------------------------" \
+        return f"\n---------------------------{'FILE' if not self.is_directory else 'DIR'}---------------------------" \
+               f"\nPath:{self.path}" \
                f"\nFilename: {self.filename} \nExtension: {self.file_extension}" \
                f"\nAttributes: {[att for index, att in enumerate(self.ATTRIBS) if index in self.exist_atribs]}" \
                f"\nDate: {self.date_real} \nHour: {self.hour_real} \nFile Size: {self.file_size_hex}" \
-               f"\n------------------------------------------------------------------------"
+               f"\n--------------------------------------------------------------------------------------------------"
 
     # TODO: Nested files for subdir, or handle it in the RAM class ? if isdir [file for file in nested_files] and so on
+
+    def append_file_to_dir(self):
+        if self.is_directory:
+            self.nested_files.append(File(parent_folder=self.path + self.filename))
+        else:
+            print("The current file is not a SUB-DIR")
+
+    # TODO: Make a input_warning method for custom message for each class using the take_dump
 
 
 if __name__ == '__main__':
     na = File()
-    print(na.filename, na.file_extension, na.atrib)  # , 'hour', 'date', 'init_cluster')
-    print(na.hour_real)
-    print(na.date_real)
     print(na)
+    na.append_file_to_dir()
