@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 
-
-from reserved_area import ReservedArea, Hex
 from fat import Fat
+from file import File
+from reserved_area import ReservedArea, Hex
 
 
 class RAM(ReservedArea):
 
     def __init__(self):
         super().__init__()
-        self.fats_size = 0
-        self.root_dir_size = 0
-        self.root_dir_offset = 0
-        self.files_subdir_offset = 0
+        self.fats_size = self.root_dir_size = Hex("0")
+        self.root_dir_offset = self.files_subdir_offset = 0
         self.fat = None
         self.calc_offsets_sizes()
         self.enter_fat()
@@ -43,9 +41,20 @@ class RAM(ReservedArea):
     def enter_fat(self):
         self.fat = Fat()
 
+    def new_file(self):
+        self.files.append(File(fat_map=self.fat.dump))
+
+    def calc_offset_to_cluster(self):
+        cluster = input("Input the cluster that you want the offset to(hex): ")
+        offset = Hex.calc_cluster_hex(reserved_area_size=self.reserved_area_size.vl_hex, fats_size=self.fats_size.vl_hex
+                                      , root_dir_size=self.root_dir_size.vl_hex, cluster=cluster,
+                                      cluster_size=self.bytes_sector_hex.vl_hex)
+        print(f"Use the command: D {offset} to {cluster} cluster")
+        print(f"For the lasts 32 chars of {cluster}-1 use D [{cluster} - 20h]")
+
 
 if __name__ == '__main__':
     na = RAM()
-    print(na)
-    print(na.fat)
-
+    na.new_file()
+    na.files[0].calc_used_clusters()
+    print(na.files[0].used_clusters)
