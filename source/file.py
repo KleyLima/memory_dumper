@@ -103,6 +103,11 @@ class File(ReservedArea):
             analysed = read_rev[:-1] if analysed.vl_dec & 1 else read_rev[1:]
             analysed = Hex(analysed)
 
+    @staticmethod
+    def input_warnings():
+        # Instructions
+        print("Time to put info about a file.")
+
 
 if __name__ == '__main__':
     na = Hex.create_a_int_hex((Hex('1.8') * Hex('2')).vl_hex)

@@ -10,7 +10,7 @@ class RAM(ReservedArea):
     def __init__(self):
         super().__init__()
         self.fats_size = self.root_dir_size = Hex("0")
-        self.root_dir_offset = self.files_subdir_offset = 0
+        self.root_dir_offset = self.files_subdir_offset = Hex("0")
         self.fat = None
         self.calc_offsets_sizes()
         self.enter_fat()
@@ -39,9 +39,12 @@ class RAM(ReservedArea):
         return out_put
 
     def enter_fat(self):
+        input(f"Time to FAT's dump, use the command D {self.reserved_area_size.vl_hex} in MS-DOS.")
         self.fat = Fat()
 
     def new_file(self):
+        print(f"Time to input the data of a file, go to ROOT DIR with: D {self.root_dir_offset.vl_hex}")
+        print(f"Type a file that you dont have typed before, each file uses 20h bytes = 2 lines in debug screen.")
         self.files.append(File(fat_map=self.fat.dump))
 
     def calc_offset_to_cluster(self):

@@ -99,13 +99,11 @@ class ReservedArea:
         print("In MS-DOS: D 0")
         input("Copy each line just like are in DOS's terminal except for '-' between byte 7 and 8.")
         clear()
+        print("Dump the Reserved Area's memory region (2 lines)")
 
 
 if __name__ == '__main__':
     na = ReservedArea(False)
-    na.get_parameters()
-    na.set_parameters()
-    na.calc_size()
     # print(na.bytes_sector)
     # print(na.BYTES_SECTOR)
     # print(na.bytes_sector_hex)

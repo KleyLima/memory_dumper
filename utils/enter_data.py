@@ -2,7 +2,6 @@
 
 from functools import reduce
 
-from utils.clear import clear
 from utils.hex import Hex
 
 
@@ -17,7 +16,6 @@ class Input:
         :return: List of strings
         """
         input("Type again for confirmation. PRESS ENTER") if confirmation else None
-        clear()
         stream = []
         [stream.extend(input("Type the {} line: ".format(turn + 1)).split()) for turn in range(rows)]
         return stream
