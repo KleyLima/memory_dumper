@@ -17,16 +17,17 @@ class File(ReservedArea):
     PARAMETERS = ['filename', 'file_extension', 'atrib', 'hour', 'date', 'init_cluster', 'file_size']
     ATTRIBS = ["Somente Leitura", "Arquivo Oculto", "Arquivo de Sistema", "Nome do Volume", "Entrada de sub-diretório",
                "Arquivo modificado"]
+    CONST = Hex("1.8")
 
     def __init__(self, fat_map, parent_folder="\\"):
         self.fat_map = fat_map
         self.filename = ""
         self.file_extension = self.date = self.hour = self.file_size = self.atrib = 0
-        self.used_clusters = self.is_directory = self.dump = self.init_cluster = 0
+        self.is_directory = self.dump = self.init_cluster = 0
         self.filename_hex = self.file_extension_hex = self.file_size_hex = 0
         self.path = parent_folder
         self.atrib_hex = self.init_cluster_hex = self.date_hex = self.hour_hex = Hex("0")
-        self.exist_atribs = []
+        self.used_clusters = self.exist_atribs = []
         self.nested_files = []
         self.hour_real = self.date_real = 0
         self.take_dump()
@@ -84,8 +85,6 @@ class File(ReservedArea):
                f"\nNested Files: {[file.__repr__() for file in self.nested_files] if self.is_directory else None}" \
                f"\n--------------------------------------------------------------------------------------------------"
 
-    # TODO: Nested files for subdir, or handle it in the RAM class ? if isdir [file for file in nested_files] and so on
-
     def append_file_to_dir(self):
         if self.is_directory:
             self.nested_files.append(File(parent_folder=self.path + self.filename, fat_map=self.fat_map))
@@ -94,7 +93,19 @@ class File(ReservedArea):
 
     # TODO: Make a input_warning method for custom message for each class using the take_dump
 
+    def calc_used_clusters(self):
+        analysed = self.init_cluster_hex
+        while analysed.vl_hex != "FFF":
+            self.used_clusters.append(analysed.vl_hex)
+            offset = Hex.create_a_int_hex((self.CONST * analysed).vl_hex)
+            read_data = self.fat_map[offset.vl_dec:offset.vl_dec + 2]
+            read_rev = Input.concat_stream(stream=read_data)
+            analysed = read_rev[:-1] if analysed.vl_dec & 1 else read_rev[1:]
+            analysed = Hex(analysed)
+
 
 if __name__ == '__main__':
-    na = File()
+    na = Hex.create_a_int_hex((Hex('1.8') * Hex('2')).vl_hex)
     print(na)
+    # na = File()
+    # print(na)
