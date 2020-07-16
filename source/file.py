@@ -37,6 +37,7 @@ class File(ReservedArea):
         self.read_attributes()
         self.calc_hour()
         self.calc_date()
+        self.calc_used_clusters()
 
     def get_string_values(self):
         self.filename = Input.string_from_stream(self.filename)
@@ -82,7 +83,7 @@ class File(ReservedArea):
                f"\nFilename: {self.filename} \nExtension: {self.file_extension}" \
                f"\nAttributes: {[att for index, att in enumerate(self.ATTRIBS) if index in self.exist_atribs]}" \
                f"\nDate: {self.date_real} \nHour: {self.hour_real} \nFile Size: {self.file_size_hex}" \
-               f"\nNested Files: {[file.__repr__() for file in self.nested_files] if self.is_directory else None}" \
+               f"\nUsed Clusters: {self.used_clusters}" \
                f"\n--------------------------------------------------------------------------------------------------"
 
     def append_file_to_dir(self):
