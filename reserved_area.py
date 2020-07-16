@@ -31,25 +31,17 @@ class ReservedArea:
         self.set_parameters()
         self.calc_size()
 
-    def take_dump(self, double_check=False):
+    def take_dump(self, double_check=False, rows=2):
         """
         Use the data in memory to instrospect the attributes of file system.
         The correct data passing is user's responsabilty.
+        :param rows: Number of rows to read
         :param double_check: For who want warrancy against mistyping with this flag on you have to type the data
         twice to check if are equal. This do not deny the fact that you can get wrong equal two times.
         """
-        clear()
-        # Instructions
-        print("Run the DEBUG program in MS-DOS")
-        print("Load the floppy data into the RAM memory")
-        print("In MS-DOS: L 0 0 0 70")
-        print("Dump the Reserved Area's memory region")
-        print("In MS-DOS: D 0")
-        input("Copy each line just like are in DOS's terminal except for '-' between byte 7 and 8.")
-        clear()
-
+        self.input_warnings()
         # Input
-        stream = Input.enter_data(rows=2)
+        stream = Input.enter_data(rows=rows)
 
         # Double check trigger
         if double_check:
@@ -81,7 +73,8 @@ class ReservedArea:
         out += f"\nBytes per sector: {self.bytes_sector_hex}  \nSectors per cluster: {self.sector_cluster_hex}"
         out += f"\nSectors of Reserved Area: {self.sectors_reserved_area_hex} \nQuantity of FAT's: {self.qtd_fat_hex}"
         out += f"\nQuantity of directory entries: {self.qtd_directory_entry_hex}"
-        out += f"\nSectors by FAT: {self.sectors_by_fat_hex} \nSize of Reserved Area in bytes: {self.reserved_area_size}"
+        out += f"\nSectors by FAT: {self.sectors_by_fat_hex} " \
+               f"\nSize of Reserved Area in bytes: {self.reserved_area_size}"
         out += f"\n---------------------------------------------------------------------------"
         return out
 
@@ -92,6 +85,20 @@ class ReservedArea:
         :return: None
         """
         self.reserved_area_size = self.sectors_reserved_area_hex * self.bytes_sector_hex
+
+    # TODO: Method to calc the used clusters by the file
+
+    @staticmethod
+    def input_warnings():
+        clear()
+        # Instructions
+        print("Run the DEBUG program in MS-DOS")
+        print("Load the floppy data into the RAM memory")
+        print("In MS-DOS: L 0 0 0 70")
+        print("Dump the Reserved Area's memory region")
+        print("In MS-DOS: D 0")
+        input("Copy each line just like are in DOS's terminal except for '-' between byte 7 and 8.")
+        clear()
 
 
 if __name__ == '__main__':

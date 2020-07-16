@@ -18,7 +18,8 @@ class File(ReservedArea):
     ATTRIBS = ["Somente Leitura", "Arquivo Oculto", "Arquivo de Sistema", "Nome do Volume", "Entrada de sub-diretório",
                "Arquivo modificado"]
 
-    def __init__(self, parent_folder="\\"):
+    def __init__(self, fat_map, parent_folder="\\"):
+        self.fat_map = fat_map
         self.filename = ""
         self.file_extension = self.date = self.hour = self.file_size = self.atrib = 0
         self.used_clusters = self.is_directory = self.dump = self.init_cluster = 0
@@ -87,7 +88,7 @@ class File(ReservedArea):
 
     def append_file_to_dir(self):
         if self.is_directory:
-            self.nested_files.append(File(parent_folder=self.path + self.filename))
+            self.nested_files.append(File(parent_folder=self.path + self.filename, fat_map=self.fat_map))
         else:
             print("The current file is not a SUB-DIR")
 

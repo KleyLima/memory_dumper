@@ -5,8 +5,7 @@ from reserved_area import ReservedArea, Input
 
 class Fat(ReservedArea):
     def __init__(self):
-        self.fat_map = None
-        self.dump = 0
+        self.dump = []
         self.take_dump()
 
     def __repr__(self):
@@ -19,9 +18,9 @@ class Fat(ReservedArea):
         print("Go to the start in FAT memory. Consult FAT offset!")
 
     def extend_fat(self):
-        print(f"You are about to expand FAT. In the moment : {self.fat_map}")
+        print(f"You are about to expand FAT. In the moment : {self.dump}")
         rows = int(input("How many lines im debug are needed?"))
-        self.fat_map.extend(Input.enter_data(rows=rows))
+        self.dump.extend(Input.enter_data(rows=rows))
 
 
 if __name__ == '__main__':

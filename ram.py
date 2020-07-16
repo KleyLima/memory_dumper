@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+
 from reserved_area import ReservedArea, Hex
+from fat import Fat
 
 
 class RAM(ReservedArea):
@@ -11,7 +13,10 @@ class RAM(ReservedArea):
         self.root_dir_size = 0
         self.root_dir_offset = 0
         self.files_subdir_offset = 0
+        self.fat = None
         self.calc_offsets_sizes()
+        self.enter_fat()
+        self.files = []
 
     def calc_offsets_sizes(self):
         """
@@ -35,7 +40,12 @@ class RAM(ReservedArea):
         out_put += super().__repr__()
         return out_put
 
+    def enter_fat(self):
+        self.fat = Fat()
+
 
 if __name__ == '__main__':
     na = RAM()
     print(na)
+    print(na.fat)
+
