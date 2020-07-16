@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from fat import Fat
-from file import File
-from reserved_area import ReservedArea, Hex
+from source.fat import Fat
+from source.file import File
+from source.reserved_area import ReservedArea, Hex
 
 
 class RAM(ReservedArea):
@@ -50,7 +50,7 @@ class RAM(ReservedArea):
                                       , root_dir_size=self.root_dir_size.vl_hex, cluster=cluster,
                                       cluster_size=self.bytes_sector_hex.vl_hex)
         print(f"Use the command: D {offset} to {cluster} cluster")
-        print(f"For the lasts 32 chars of {cluster}-1 use D [{cluster} - 20h]")
+        print(f"For the lasts 32 chars of {cluster}-1 cluster use D [{offset} - 20h]")
 
 
 if __name__ == '__main__':
@@ -58,3 +58,4 @@ if __name__ == '__main__':
     na.new_file()
     na.files[0].calc_used_clusters()
     print(na.files[0].used_clusters)
+    na.calc_offset_to_cluster()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from reserved_area import ReservedArea, Input
+from source.reserved_area import ReservedArea, Input
 
 
 class Fat(ReservedArea):

@@ -1,6 +1,6 @@
 # -*- coding: utf -8 -*-
 
-from reserved_area import ReservedArea, Hex
+from source.reserved_area import ReservedArea, Hex
 from utils.bin import Bin
 from utils.enter_data import Input
 
