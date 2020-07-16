@@ -6,7 +6,7 @@ from reserved_area import ReservedArea, Input
 class Fat(ReservedArea):
     def __init__(self):
         self.dump = []
-        self.take_dump()
+        self.take_dump(rows=4)
 
     def __repr__(self):
         return "------------------------FAT DATA--------------------------------------------------" \
