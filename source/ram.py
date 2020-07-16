@@ -51,7 +51,7 @@ class RAM(ReservedArea):
         self.files.append(File(fat_map=self.fat.dump))
 
     def calc_offset_to_cluster(self):
-        cluster = input("Input the cluster that you want the offset to(hex): ")
+        cluster = input("Input the cluster that you want the offset to(hex): ").upper()
         offset = Hex.calc_cluster_hex(reserved_area_size=self.reserved_area_size.vl_hex, fats_size=self.fats_size.vl_hex
                                       , root_dir_size=self.root_dir_size.vl_hex, cluster=cluster,
                                       cluster_size=self.bytes_sector_hex.vl_hex)

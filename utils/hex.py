@@ -51,6 +51,7 @@ class Hex:
     @staticmethod
     def calc_cluster_hex(reserved_area_size, fats_size, root_dir_size, cluster, cluster_size):
         cmd = f"echo 'obase=16;ibase=16;{reserved_area_size}+{fats_size}+{root_dir_size}+(({cluster}-2)*{cluster_size})' | bc"
+        print(f"PG({cluster})= {reserved_area_size}+{fats_size}+{root_dir_size}+(({cluster}-2)*{cluster_size})")
         out = subprocess.run(cmd, stdout=subprocess.PIPE, shell=True)
         return out.stdout.decode('utf-8')[:-1]
 
