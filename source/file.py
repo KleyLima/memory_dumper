@@ -82,8 +82,11 @@ class File(ReservedArea):
                f"\nPath:{self.path}" \
                f"\nFilename: {self.filename} \nExtension: {self.file_extension}" \
                f"\nAttributes: {[att for index, att in enumerate(self.ATTRIBS) if index in self.exist_atribs]}" \
+               f"\nFirt Cluster: {self.init_cluster_hex}" \
                f"\nDate: {self.date_real} \nHour: {self.hour_real} \nFile Size: {self.file_size_hex}" \
                f"\nUsed Clusters: {self.used_clusters}" \
+               f"\n Don't forget the append {self.path + self.filename if self.is_directory else '/'} in the path of " \
+               f"files inside this dir." \
                f"\n--------------------------------------------------------------------------------------------------"
 
     def append_file_to_dir(self):
